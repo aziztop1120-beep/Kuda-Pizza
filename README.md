@@ -1,1 +1,1 @@
-# Kuda-pzza
+# Kuda-Pizza-klone
