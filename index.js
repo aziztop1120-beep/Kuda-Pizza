@@ -48,3 +48,86 @@ btn.onclick = () => {
 };
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  const sectionIds = ['aksiyalar', 'pizza', 'sushi', 'napitki', 'zakuski', 'combo', 'desserts', 'sauces'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  const navLinks = document.querySelectorAll('.nav-link');
+  const cards = document.querySelectorAll('.category-card');
+
+  // --- 1) Aktiv bo'limni belgilash (ham matnli menyu, ham kartochkalar uchun) ---
+  const setActive = (id) => {
+    navLinks.forEach(link => link.classList.toggle('active', link.dataset.target === id));
+    cards.forEach(card => card.classList.toggle('active', card.dataset.target === id));
+  };
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, {
+    root: null,
+    rootMargin: '-45% 0px -45% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(section => sectionObserver.observe(section));
+
+  // --- 2) Ikonkali kartochkalar bo'limi ko'rinishdan chiqqanda sticky panelga matnli menyu chiqadi ---
+  const categoriesSection = document.getElementById('categoriesSection');
+  const stickyHeader = document.getElementById('stickyHeader');
+
+  if (categoriesSection && stickyHeader) {
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Kartochkalar bo'limi ekrandan yuqoriga chiqib ketganda (scroll pastga) -> menyu chiqadi
+        stickyHeader.classList.toggle('header-scrolled', !entry.isIntersecting && entry.boundingClientRect.top < 0);
+      });
+    }, {
+      root: null,
+      threshold: 0
+    });
+
+    headerObserver.observe(categoriesSection);
+  }
+}); 
+
+// Mobil sidebar navigation
+const openSidebarBtn = document.getElementById("openSidebar");
+const closeSidebarBtn = document.getElementById("closeSidebar");
+const mobileSidebar = document.getElementById("mobileSidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+function openSidebar() {
+  mobileSidebar.classList.add("open");
+  sidebarOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSidebar() {
+  mobileSidebar.classList.remove("open");
+  sidebarOverlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+openSidebarBtn?.addEventListener("click", openSidebar);
+closeSidebarBtn?.addEventListener("click", closeSidebar);
+sidebarOverlay?.addEventListener("click", closeSidebar);
+
+// Link bosilganda ham menyu yopilsin
+document.querySelectorAll(".sidebar-link").forEach(link => {
+  link.addEventListener("click", closeSidebar);
+});
+
+
+const logoButton = document.getElementById('logo-btn');
+
+if (logoButton) {
+  logoButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+

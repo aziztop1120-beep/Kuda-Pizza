@@ -9,7 +9,41 @@
   <title>Куда пицца</title>
   <link rel="icon" type="image/png" href="./img/image copy 3.png">
 
-  
+<style>
+  #stickyMenu {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-width .35s ease, opacity .35s ease;
+    white-space: nowrap;
+  }
+  .header-scrolled #stickyMenu {
+    max-width: 900px;
+    height: 45px;
+    opacity: 1;
+  }
+
+  .nav-link { color: #1f2937; transition: color .2s; font-size: 20px; font-weight: 400}
+  .nav-link.active { color: #FF7010; font-size: 20px; font-weight: 500; }
+
+/* Mobile sidebar */
+#mobileSidebar {
+  transform: translateX(-100%);
+  transition: transform .3s ease;
+}
+#mobileSidebar.open {
+  transform: translateX(0);
+}
+#sidebarOverlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+#sidebarOverlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+</style>
 </head>
 
 <body>
@@ -47,11 +81,11 @@
         </p>
 
         <form class="w-full max-w-[360px] mx-auto mt-8 space-y-4">
-          <input type="text" placeholder="имя" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input type="email" placeholder="электронная почта"
+          <input type="text" required placeholder="имя" class=" w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <input type="email" required  placeholder="электронная почта"
             class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input type="text" placeholder="+998" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input type="password" placeholder="пароль" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <input type="text"required placeholder="+998" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <input type="password"required  placeholder="пароль" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
           <button class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
             Регистрация
           </button>
@@ -61,9 +95,7 @@
         </p>
         <p class="text-center mt-4">
           y вас уже есть аккаунт?
-          <a href="#" class="text-orange-500 font-semibold">
-            Авторизоваться
-          </a>
+          <button class="text-orange-600 cursor-pointer" >Авторизоваться </button>
         </p>
 
       </div>
@@ -72,15 +104,33 @@
 
   <hr class="border-gray-300 my-4">
 
-<div class="top-0 left-0 w-full z-10
+<div id="stickyHeader" class="top-0 left-0 w-full z-10
       bg-white/40
       backdrop-blur-xl
       border-b border-white/20
       shadow-sm sticky p-[5px] max-w-8xl mx-auto flex flex-wrap items-center justify-between gap-4 px-4 sm:px-6 py-3">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-pizza-slice text-orange-500 text-2xl sm:text-3xl"></i>
-        <span class="font-400 text-lg sm:text-xl">Куда пицца</span>
-      </div>
+
+     <div class="flex items-center gap-2">
+  <button id="openSidebar" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-black/5" aria-label="Открыть меню">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+  <i id="logo-btn" class="cursor-pointer select-none fa-solid fa-pizza-slice text-orange-500 text-2xl sm:text-3xl"></i>
+  <span class="font-400 text-lg sm:text-xl">Куда пицца</span>
+</div>
+
+      <nav id="stickyMenu" class="hidden md:flex items-center gap-12 text-sm sm:text-base font-medium">
+        <a href="#aksiyalar" data-target="aksiyalar" class="nav-link">Акции</a>
+        <a href="#pizza" data-target="pizza" class="nav-link">Пицца</a>
+        <a href="#sushi" data-target="sushi" class="nav-link">Суши</a>
+        <a href="#napitki" data-target="napitki" class="nav-link">Напитки</a>
+        <a href="#zakuski" data-target="zakuski" class="nav-link">Закуски</a>
+        <a href="#combo" data-target="combo" class="nav-link">Комбо</a>
+        <a href="#desserts" data-target="desserts" class="nav-link">Десерты</a>
+        <a href="#sauces" data-target="sauces" class="nav-link">Соусы</a>
+      </nav>
+
       <button
         class="bg-orange-400 hover:bg-orange-600 text-white rounded-2xl px-4 sm:px-6 py-1 flex items-center gap-2 font-semibold text-sm sm:text-base">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 -960 960 960" fill="white">
@@ -89,72 +139,105 @@
         </svg>
         0 ₽
       </button>
+</div>
+
+
+<div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-[9998] md:hidden"></div>
+
+<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-72 max-w-[80%] bg-white z-[9999] shadow-xl md:hidden flex flex-col">
+  <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-pizza-slice text-orange-500 text-2xl"></i>
+      <span class="text-lg font-medium">Куда пицца</span>
+    </div>
+    <button id="closeSidebar" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/5" aria-label="Закрыть меню">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto py-3">
+    <a href="#aksiyalar" data-target="aksiyalar" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-fire w-5 text-red-500"></i> Акции
+    </a>
+    <a href="#pizza" data-target="pizza" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-pizza-slice w-5 text-orange-500"></i> Пицца
+    </a>
+    <a href="#sushi" data-target="sushi" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-fish w-5 text-orange-500"></i> Суши
+    </a>
+    <a href="#napitki" data-target="napitki" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-glass-water w-5 text-orange-500"></i> Напитки
+    </a>
+    <a href="#zakuski" data-target="zakuski" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-burger w-5 text-orange-500"></i> Закуски
+    </a>
+    <a href="#combo" data-target="combo" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-box-open w-5 text-orange-500"></i> Комбо
+    </a>
+    <a href="#desserts" data-target="desserts" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-cake-candles w-5 text-orange-500"></i> Десерты
+    </a>
+    <a href="#sauces" data-target="sauces" class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500">
+      <i class="fa-solid fa-bowl-food w-5 text-orange-500"></i> Соусы
+    </a>
+  </nav>
+
+  <div class="px-5 py-4 border-t border-gray-200 text-sm text-gray-500">
+    Время работы: c 11:00 до 23:00
+  </div>
+</aside>
+
+
+<section id="categoriesSection" class="bg-white/40
+        backdrop-blur-xl
+        border-b border-white/20
+        shadow-sm bg-gray-100 py-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 px-4">
+
+    <div data-target="aksiyalar" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-fire text-4xl text-red-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#aksiyalar">Акции</a></p>
     </div>
 
+    <div data-target="pizza" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-pizza-slice text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#pizza">Пицца</a></p>
+    </div>
 
-    <section  class="  bg-white/40
-            backdrop-blur-xl
-            border-b border-white/20
-            shadow-sm  bg-gray-100 py-8">
-      <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 px-4">
+    <div data-target="sushi" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-fish text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#sushi">Суши</a></p>
+    </div>
 
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i class="fa-solid fa-fire text-4xl text-red-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#aksiyalar">Акции</a></p>
-        </div>
+    <div data-target="napitki" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-glass-water text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#napitki">Напитки</a></p>
+    </div>
 
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-pizza-slice text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#pizza">Пицца</a></p>
-        </div>
+    <div data-target="zakuski" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-burger text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#zakuski">Закуски</a></p>
+    </div>
 
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-fish text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#sushi">Суши</a></p>
-        </div>
+    <div data-target="combo" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-box-open text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#combo">Комбо</a></p>
+    </div>
 
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-glass-water text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#napitki">Напитки</a></p>
-        </div>
+    <div data-target="desserts" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-cake-candles text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#desserts">Десерты</a></p>
+    </div>
 
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-burger text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#zakuski">Закуски</a></p>
-        </div>
+    <div data-target="sauces" class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+      <i class="fa-solid fa-bowl-food text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
+      <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#sauces">Соусы</a></p>
+    </div>
 
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-box-open text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#combo">Комбо</a></p>
-        </div>
-
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-cake-candles text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#desserts">Десерты</a></p>
-        </div>
-
-        <div
-          class="group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-          <i
-            class="fa-solid fa-bowl-food text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-          <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#sauces">Соусы</a></p>
-        </div>
-
-      </div>
-    </section>
+  </div>
+</section>
 
     <div id="aksiyalar" class="flex flex-wrap pb-19 justify-center items-center gap-4 mt-12 px-4">
       <img class="w-full sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 4.png" alt="img">
@@ -162,6 +245,7 @@
       <img class="w-full sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 4.png" alt="img">
       <img class="w-full sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 5.png" alt="img">
     </div>
+
 
     <hr class="border-gray-300 my-4">
     <br><br>
@@ -200,38 +284,29 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+           <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 6.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 6.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -251,7 +326,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -278,7 +353,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -305,7 +380,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -325,38 +400,29 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+           <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 6.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 6.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -375,7 +441,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -401,7 +467,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -427,7 +493,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -451,34 +517,27 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 10.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 10.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
                 </div>
               </div>
@@ -500,7 +559,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -527,7 +586,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -554,7 +613,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -572,39 +631,29 @@
         <div class="max-w-7xl mx-auto px-4">
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            <div
+  <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 10.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 10.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -624,7 +673,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -650,7 +699,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -676,7 +725,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -702,32 +751,25 @@
 
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 22.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 22.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
                 </div>
               </div>
@@ -749,7 +791,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -776,7 +818,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -803,7 +845,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -825,36 +867,27 @@
 
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 22.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 22.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -874,7 +907,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -884,6 +917,7 @@
                 </div>
               </div>
             </div>
+
 
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
@@ -900,7 +934,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -927,7 +961,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -951,43 +985,10 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
-              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 18.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
-              </div>
-
-              <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
-
-                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
-                </p>
-
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
-                    Выбрать
-                  </button>
-
-                  <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div
+           <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 19.png"
+                <img src="./img/image copy 14.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -999,7 +1000,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -1014,7 +1015,7 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 20.png"
+                <img src="./img/image copy 15.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1026,7 +1027,34 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                    Выбрать
+                  </button>
+
+                  <span class="text-[#FF7010] text-2xl font-semibold">
+                    45,000 ₽
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 16.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
+              </div>
+
+              <div class="px-6 pb-6">
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
+
+                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
+                  Курица, Лук, Перец Халапеньо...
+                </p>
+
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -1040,7 +1068,7 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 21.png"
+                <img src="./img/image copy 17.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1052,7 +1080,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -1071,46 +1099,10 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
-              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 18.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
-              </div>
-
-              <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
-
-                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
-                </p>
-
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
-                    Выбрать
-                  </button>
-
-                  <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
-                  </span>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            <div
+           <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 19.png"
+                <img src="./img/image copy 14.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1122,7 +1114,61 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                    Выбрать
+                  </button>
+
+                  <span class="text-[#FF7010] text-2xl font-semibold">
+                    45,000 ₽
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 15.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
+              </div>
+
+              <div class="px-6 pb-6">
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
+
+                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
+                  Курица, Лук, Перец Халапеньо...
+                </p>
+
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                    Выбрать
+                  </button>
+
+                  <span class="text-[#FF7010] text-2xl font-semibold">
+                    45,000 ₽
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 16.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
+              </div>
+
+              <div class="px-6 pb-6">
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
+
+                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
+                  Курица, Лук, Перец Халапеньо...
+                </p>
+
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -1136,7 +1182,7 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 20.png"
+                <img src="./img/image copy 17.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1148,7 +1194,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                  <button class="bg-[#FF7010] active:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
@@ -1158,33 +1204,6 @@
                 </div>
               </div>
             </div>
-
-            <div
-              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-              <div class="flex justify-center pt-4">
-                <img src="./img/image copy 21.png"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
-              </div>
-
-              <div class="px-6 pb-6">
-                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
-
-                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо...
-                </p>
-
-                <div class="flex justify-between items-center mt-6">
-                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
-                    Выбрать
-                  </button>
-
-                  <span class="text-[#FF7010] text-2xl font-semibold">
-                    45,000 ₽
-                  </span>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -1198,38 +1217,29 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+                       <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 30.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 30.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -1322,36 +1332,28 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+                     <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 30.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 30.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
               </div>
             </div>
@@ -1448,46 +1450,10 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
-              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 34.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
-              </div>
-
-              <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
-
-                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
-                </p>
-
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
-                    Выбрать
-                  </button>
-
-                  <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
-                  </span>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            <div
+                     <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 35.png"
+                <img src="./img/image copy 18.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1514,7 +1480,34 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 36.png"
+                <img src="./img/image copy 19.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
+              </div>
+
+              <div class="px-6 pb-6">
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
+
+                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
+                  Курица, Лук, Перец Халапеньо...
+                </p>
+
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                    Выбрать
+                  </button>
+
+                  <span class="text-[#FF7010] text-2xl font-semibold">
+                    45,000 ₽
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 20.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1540,7 +1533,7 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 37.png"
+                <img src="./img/image copy 21.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1572,46 +1565,10 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
-              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 34.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
-              </div>
-
-              <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
-
-                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
-                </p>
-
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
-                    Выбрать
-                  </button>
-
-                  <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
-                  </span>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            <div
+                     <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 35.png"
+                <img src="./img/image copy 18.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1638,7 +1595,7 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 36.png"
+                <img src="./img/image copy 19.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1665,7 +1622,33 @@
             <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
               <div class="flex justify-center pt-4">
-                <img src="./img/image copy 37.png"
+                <img src="./img/image copy 20.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
+              </div>
+
+              <div class="px-6 pb-6">
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
+
+                <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
+                  Курица, Лук, Перец Халапеньо...
+                </p>
+
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
+                    Выбрать
+                  </button>
+
+                  <span class="text-[#FF7010] text-2xl font-semibold">
+                    45,000 ₽
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 21.png"
                   class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
@@ -1701,38 +1684,29 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+                      <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 26.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 26.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -1826,38 +1800,29 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div
+                         <div
               class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-
-              <div class="flex justify-center items-center pt-4">
-                <img src="./img/image copy 26.png" alt="Pizza"
-                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition duration-300">
+              <div class="flex justify-center pt-4">
+                <img src="./img/image copy 26.png"
+                  class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
               </div>
 
               <div class="px-6 pb-6">
-
-                <h2 class="text-[18px] font-semibold text-gray-900 leading-7">
-                  Чикен Сладкий Чили
-                </h2>
+                <h2 class="text-[18px] font-semibold">EASY PEASY огуречный расколбас</h2>
 
                 <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">
-                  Курица, Лук, Перец Халапеньо, Сыр Моцарелла,
-                  Томатный coyc...
+                  Курица, Лук, Перец Халапеньо...
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                  <button
-                    class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-medium transition">
+                <div class="flex justify-between items-center mt-6">
+                  <button class="bg-[#FF7010] hover:bg-orange-600 text-white px-8 py-3 rounded-xl">
                     Выбрать
                   </button>
 
                   <span class="text-[#FF7010] text-2xl font-semibold">
-                    55,000 ₽
+                    45,000 ₽
                   </span>
-
                 </div>
-
               </div>
             </div>
 
@@ -2061,9 +2026,7 @@
     </footer>
 
 
-    <script src="index.js">
-
-    </script>
+    <script src="index.js"></script>
 
 
 
