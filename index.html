@@ -48,7 +48,7 @@
 
 <body>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 py-3">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 py-3">
     <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
       fill="#c46c08">
       <path
@@ -68,6 +68,7 @@
       <img class="w-5 h-6" src="./img/image.png" alt="img"> <span class="hidden sm:inline">Войти в аккаунт</span>
     </button>
 
+    <!-- Register Modal -->
     <div id="registerModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
       <div class="bg-white w-[800px] max-w-full rounded-lg relative p-6 sm:p-12">
         <button id="closeModal" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">
@@ -93,13 +94,46 @@
         <p class="text-center text-gray-500 mt-6">
           Продолжая, вы соглашаетесь...
         </p>
-        <p class="text-center mt-4">
+        <p class="text-center mt-4 switch-link">
           y вас уже есть аккаунт?
-          <button class="text-orange-600 cursor-pointer" >Авторизоваться </button>
+          <button class="text-orange-600 cursor-pointer switch-link " id="toLogin">Авторизоваться </button>
+        </p>
+        
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+      <div class="bg-white w-[800px] max-w-full rounded-lg relative p-6 sm:p-12">
+        <button id="closeLoginModal" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">
+        </button>
+        <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-center">
+          Вход в аккаунт
+        </h2>
+        <p class="text-center text-gray-600 mt-3">
+          Сможете быстро оформлять заказы,<br>
+          использовать бонусы
+        </p>
+
+        <form class="w-full max-w-[360px] mx-auto mt-8 space-y-4">
+          <input type="email" required placeholder="электронная почта"
+            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <input type="password" required placeholder="пароль" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <button class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
+            Регистрация
+          </button>
+        </form>
+        <p class="text-center text-gray-500 mt-6">
+          Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским соглашением
+        </p>
+        <p class="text-center mt-4 switch-link">
+          Нужен аккаунт?
+          <button class="text-orange-600 cursor-pointer switch-link" id="toRegister">Войти</button>
         </p>
 
       </div>
     </div>
+
   </div>
 
   <hr class="border-gray-300 my-4">

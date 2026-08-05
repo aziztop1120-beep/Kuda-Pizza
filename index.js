@@ -1,24 +1,24 @@
-const openModal = document.getElementById("openModal");
-const closeModal = document.getElementById("closeModal");
-const modal = document.getElementById("registerModal");
+// const openModal = document.getElementById("openModal");
+// const closeModal = document.getElementById("closeModal");
+// const modal = document.getElementById("registerModal");
 
-openModal.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-});
+// openModal.addEventListener("click", () => {
+//     modal.classList.remove("hidden");
+//     modal.classList.add("flex");
+// });
 
-closeModal.addEventListener("click", () => {
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-});
+// closeModal.addEventListener("click", () => {
+//     modal.classList.add("hidden");
+//     modal.classList.remove("flex");
+// });
 
-// Tashqarisini bosganda yopiladi
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-    }
-});
+// // Tashqarisini bosganda yopiladi
+// modal.addEventListener("click", (e) => {
+//     if (e.target === modal) {
+//         modal.classList.add("hidden");
+//         modal.classList.remove("flex");
+//     }
+// });
 
 
 const textBox = document.getElementById("textBox");
@@ -131,3 +131,61 @@ if (logoButton) {
   });
 }
 
+const openModal = document.getElementById("openModal");
+const closeModal = document.getElementById("closeModal");
+const closeLoginModal = document.getElementById("closeLoginModal");
+const registerModal = document.getElementById("registerModal");
+const loginModal = document.getElementById("loginModal");
+const toLogin = document.getElementById("toLogin");
+const toRegister = document.getElementById("toRegister");
+
+function showModal(modal) {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
+
+function hideModal(modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
+
+// "Войти в аккаунт" bosilganda registratsiya oynasi ochiladi
+openModal.addEventListener("click", () => {
+    showModal(registerModal);
+});
+
+// Registratsiya oynasini yopish
+closeModal.addEventListener("click", () => {
+    hideModal(registerModal);
+});
+
+// Login oynasini yopish
+closeLoginModal.addEventListener("click", () => {
+    hideModal(loginModal);
+});
+
+// "Авторизоваться" bosilganda registratsiyadan login oynasiga o'tadi
+toLogin.addEventListener("click", () => {
+    hideModal(registerModal);
+    showModal(loginModal);
+});
+
+// "Войти" bosilganda logindan registratsiya oynasiga qaytadi
+toRegister.addEventListener("click", () => {
+    hideModal(loginModal);
+    showModal(registerModal);
+});
+
+// Tashqarisini bosganda yopiladi (register modal)
+registerModal.addEventListener("click", (e) => {
+    if (e.target === registerModal) {
+        hideModal(registerModal);
+    }
+});
+
+// Tashqarisini bosganda yopiladi (login modal)
+loginModal.addEventListener("click", (e) => {
+    if (e.target === loginModal) {
+        hideModal(loginModal);
+    }
+});
