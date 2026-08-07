@@ -189,3 +189,46 @@ loginModal.addEventListener("click", (e) => {
         hideModal(loginModal);
     }
 });
+
+const button =
+document.querySelector('#myButton');
+button.addEventListener('click', () => {
+alert("Siz ro'yhatdan o'tdingiz!");
+})
+
+// ===============================
+// DARK MODE
+// ===============================
+
+const themeBtn = document.getElementById("themeToggle");
+
+function enableDark() {
+    document.body.classList.add("dark");
+    themeBtn.innerHTML = "☀️";
+    localStorage.setItem("theme", "dark");
+}
+
+function disableDark() {
+    document.body.classList.remove("dark");
+    themeBtn.innerHTML = "🌙";
+    localStorage.setItem("theme", "light");
+}
+
+if (localStorage.getItem("theme") === "dark") {
+    enableDark();
+}
+
+themeBtn.addEventListener("click", () => {
+
+    if (document.body.classList.contains("dark")) {
+
+        disableDark();
+
+    } else {
+
+        enableDark();
+
+    }
+
+});
+
