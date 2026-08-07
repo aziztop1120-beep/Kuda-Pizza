@@ -58,6 +58,27 @@
       pointer-events: auto;
     }
 
+    /* Cart drawer */
+    #cartDrawer {
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+
+    #cartDrawer.open {
+      transform: translateX(0);
+    }
+
+    #cartOverlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+
+    #cartOverlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
 
     /* ===== DARK MODE ===== */
 
@@ -221,10 +242,18 @@
          162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
     </svg>
     <select class="text-sm sm:text-base rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-50">
-      <option selected>Москва</option>
-      <option>Томск</option>
-      <option>Казань</option>
-
+      <option selected>Yunusobod tumani</option>
+      <option>Yangihayot tumani</option>
+      <option>Yakkasaroy tumani</option>
+      <option>Yashnobod tumani</option>
+      <option>Uchtepa tumani</option>
+      <option>Shayxontohur tumani</option>
+      <option>Sergeli tumani</option>
+      <option>Olmazor tumani</option>
+      <option>Mirobod tumani</option>
+      <option>Mirzo Ulug'bek tumani</option>
+      <option>Chilonzor tumani</option>
+      <option>Bektemir tumani</option>
     </select>
     
     <h1 class="text-sm sm:text-base">Проверить адрес</h1>
@@ -345,13 +374,14 @@ hover:rotate-180 duration-500">
 
 
 
-    <button
-      class="bg-orange-400 hover:bg-orange-600 text-white rounded-2xl px-4 sm:px-6 py-1 flex items-center gap-2 font-semibold text-sm sm:text-base">
+    <button id="cartBtn"
+      class="relative bg-orange-400 hover:bg-orange-600 text-white rounded-2xl px-4 sm:px-6 py-1 flex items-center gap-2 font-semibold text-sm sm:text-base">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 -960 960 960" fill="white">
         <path
           d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Z" />
       </svg>
-      0 ₽
+      <span id="cartTotalText">0 ₽</span>
+      <span id="cartCountBadge" class="hidden absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
     </button>
 
   </div>
@@ -414,6 +444,72 @@ hover:rotate-180 duration-500">
       Время работы: c 11:00 до 23:00
     </div>
   </aside>
+
+  <!-- Cart Drawer -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-[9998]"></div>
+
+  <aside id="cartDrawer"
+    class="fixed top-0 right-0 h-full w-96 max-w-[90%] bg-white z-[9999] shadow-xl flex flex-col">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+      <h2 class="text-xl font-semibold">Ваша корзина</h2>
+      <button id="closeCart" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/5"
+        aria-label="Закрыть корзину">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="cartItemsList" class="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+      <p id="cartEmptyMsg" class="text-gray-500 text-center mt-10">Корзина пуста</p>
+    </div>
+
+    <div class="px-5 py-4 border-t border-gray-200 space-y-3">
+      <div class="flex items-center justify-between text-lg font-semibold">
+        <span>Итого:</span>
+        <span id="cartSubtotal">0 ₽</span>
+      </div>
+      <button id="checkoutBtn"
+        class="w-full h-12 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg font-semibold">
+        Оформить заказ
+      </button>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+    <div class="bg-white w-[500px] max-w-full rounded-lg relative p-6 sm:p-10">
+      <button id="closeCheckout" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">
+        &times;
+      </button>
+      <h2 class="text-2xl sm:text-3xl font-bold text-center">
+        Оформление заказа
+      </h2>
+
+      <form id="checkoutForm" class="w-full mx-auto mt-8 space-y-4">
+        <input id="checkoutName" type="text" required placeholder="Ваше имя"
+          class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+        <input id="checkoutPhone" type="text" required placeholder="+998"
+          class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+        <input id="checkoutAddress" type="text" required placeholder="Адрес доставки"
+          class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+        <select id="checkoutPayment" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <option value="cash">Наличными курьеру</option>
+          <option value="card">Картой курьеру</option>
+        </select>
+
+        <div class="flex items-center justify-between text-lg font-semibold pt-2">
+          <span>К оплате:</span>
+          <span id="checkoutTotal">0 ₽</span>
+        </div>
+
+        <button type="submit" class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
+          Подтвердить заказ
+        </button>
+      </form>
+    </div>
+  </div>
 
 
   <section id="categoriesSection" class="bg-white/40
@@ -526,9 +622,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 6.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -553,9 +649,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 7.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -580,9 +676,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 8.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -607,9 +703,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 9.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -642,9 +738,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 6.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -668,9 +764,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 7.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -694,9 +790,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 8.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -720,9 +816,9 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 9.png"
-                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 hover:m-2 transition">
+                class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105  transition">
             </div>
 
             <div class="px-6 pb-6">
@@ -759,7 +855,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 10.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -786,7 +882,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 11.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -813,7 +909,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 12.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -840,7 +936,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 13.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -873,7 +969,7 @@ hover:rotate-180 duration-500">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 10.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -900,7 +996,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4">
               <img src="./img/image copy 11.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -926,7 +1022,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 12.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -952,7 +1048,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 13.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -984,14 +1080,14 @@ hover:rotate-180 duration-500">
   <div id="napitki">
     <h1 class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8"> Напитки</h1>
 
-    <section class="bg-[#f5f5f7] py-10">
+    <section class="bg-[#f5f5f7] py-10">  
       <div class="max-w-7xl mx-auto px-4">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 22.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1018,7 +1114,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 23.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1045,7 +1141,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 24.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1072,7 +1168,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 25.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1107,7 +1203,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 22.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1134,7 +1230,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 23.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1161,7 +1257,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 24.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1188,7 +1284,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 25.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1227,7 +1323,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 14.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1254,7 +1350,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 15.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1281,7 +1377,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 16.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1307,7 +1403,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 17.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1459,7 +1555,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 30.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1486,7 +1582,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 31.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1513,7 +1609,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 32.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1539,7 +1635,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 33.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1574,7 +1670,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 30.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1601,7 +1697,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 31.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1627,7 +1723,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 32.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1653,7 +1749,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 33.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1692,7 +1788,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 18.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1719,7 +1815,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 19.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1746,7 +1842,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 20.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1772,7 +1868,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 21.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1807,7 +1903,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 18.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1834,7 +1930,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 19.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1861,7 +1957,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 20.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1887,7 +1983,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 21.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1917,7 +2013,7 @@ hover:rotate-180 duration-500">
   </div>
 
   <div id="sauces">
-    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8"> Десерты</h1>
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8"> Соусы</h1>
 
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
@@ -1926,7 +2022,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 26.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1953,7 +2049,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 27.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -1980,7 +2076,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 28.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -2007,7 +2103,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 29.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -2042,7 +2138,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 26.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -2069,7 +2165,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 27.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -2096,7 +2192,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 28.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
@@ -2123,7 +2219,7 @@ hover:rotate-180 duration-500">
 
           <div
             class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-            <div class="flex justify-center pt-4">
+            <div class="flex justify-center pt-4 m-4  ">
               <img src="./img/image copy 29.png"
                 class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
             </div>
