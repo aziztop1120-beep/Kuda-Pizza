@@ -1,763 +1,764 @@
-<!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+  <!DOCTYPE html>
+  <html lang="ru" class="scroll-smooth">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="icon" type="image/png" href="./img/image copy 35.png">
-  <title>Куда пицца</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="SLM2VFATJlwhZ6dsvhE8dSN6AHv_RXFwlIzqhx4_sQ8" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="./img/image copy 35.png">
+    <title>Куда пицца</title>
 
-  <style>
-    #stickyMenu {
-      max-width: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-width .35s ease, opacity .35s ease;
-      white-space: nowrap;
-    }
+    <style>
+      #stickyMenu {
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-width .35s ease, opacity .35s ease;
+        white-space: nowrap;
+      }
 
-    .header-scrolled #stickyMenu {
-      max-width: 900px;
-      height: 45px;
-      opacity: 1;
-    }
+      .header-scrolled #stickyMenu {
+        max-width: 900px;
+        height: 45px;
+        opacity: 1;
+      }
 
-    .nav-link {
-      color: #1f2937;
-      transition: color .2s;
-      font-size: 20px;
-      font-weight: 400
-    }
+      .nav-link {
+        color: #1f2937;
+        transition: color .2s;
+        font-size: 20px;
+        font-weight: 400
+      }
 
-    .nav-link.active {
-      color: #FF7010;
-      font-size: 20px;
-      font-weight: 500;
-    }
+      .nav-link.active {
+        color: #FF7010;
+        font-size: 20px;
+        font-weight: 500;
+      }
 
-    #mobileSidebar {
-      transform: translateX(-100%);
-      transition: transform .3s ease;
-    }
+      #mobileSidebar {
+        transform: translateX(-100%);
+        transition: transform .3s ease;
+      }
 
-    #mobileSidebar.open {
-      transform: translateX(0);
-    }
+      #mobileSidebar.open {
+        transform: translateX(0);
+      }
 
-    #sidebarOverlay {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-    }
+      #sidebarOverlay {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s ease;
+      }
 
-    #sidebarOverlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+      #sidebarOverlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
 
-    #cartDrawer {
-      transform: translateX(100%);
-      transition: transform .3s ease;
-    }
+      #cartDrawer {
+        transform: translateX(100%);
+        transition: transform .3s ease;
+      }
 
-    #cartDrawer.open {
-      transform: translateX(0);
-    }
+      #cartDrawer.open {
+        transform: translateX(0);
+      }
 
-    #cartOverlay {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-    }
+      #cartOverlay {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s ease;
+      }
 
-    #cartOverlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+      #cartOverlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
 
-    body {
-      transition: .4s;
-    }
+      body {
+        transition: .4s;
+      }
 
-    .dark {
-      background: #0f172a;
-      color: white;
-    }
+      .dark {
+        background: #0f172a;
+        color: white;
+      }
 
-    .dark #stickyHeader {
-      background: #111827ee !important;
-      backdrop-filter: blur(15px);
-    }
+      .dark #stickyHeader {
+        background: #111827ee !important;
+        backdrop-filter: blur(15px);
+      }
 
-    .dark #categoriesSection {
-      background: #111827 !important;
-    }
+      .dark #categoriesSection {
+        background: #111827 !important;
+      }
 
-    .dark .bg-white {
-      background: #1e293b !important;
-      color: white !important;
-    }
+      .dark .bg-white {
+        background: #1e293b !important;
+        color: white !important;
+      }
 
-    .dark .bg-gray-100 {
-      background: #0f172a !important;
-    }
+      .dark .bg-gray-100 {
+        background: #0f172a !important;
+      }
 
-    .dark h1,
-    .dark h2,
-    .dark h3,
-    .dark h4,
-    .dark p,
-    .dark span,
-    .dark a {
-      color: white !important;
-    }
+      .dark h1,
+      .dark h2,
+      .dark h3,
+      .dark h4,
+      .dark p,
+      .dark span,
+      .dark a {
+        color: white !important;
+      }
 
-    .dark .text-gray-500,
-    .dark .text-gray-600,
-    .dark .text-gray-700 {
-      color: #d1d5db !important;
-    }
+      .dark .text-gray-500,
+      .dark .text-gray-600,
+      .dark .text-gray-700 {
+        color: #d1d5db !important;
+      }
 
-    .dark input,
-    .dark select {
-      background: #334155 !important;
-      border: 1px solid #475569 !important;
-      color: white !important;
-    }
+      .dark input,
+      .dark select {
+        background: #334155 !important;
+        border: 1px solid #475569 !important;
+        color: white !important;
+      }
 
-    .dark input::placeholder {
-      color: #cbd5e1;
-    }
+      .dark input::placeholder {
+        color: #cbd5e1;
+      }
 
-    .dark #registerModal .bg-white,
-    .dark #loginModal .bg-white {
-      background: #1e293b !important;
-    }
+      .dark #registerModal .bg-white,
+      .dark #loginModal .bg-white {
+        background: #1e293b !important;
+      }
 
-    .dark .border-gray-200 {
-      border-color: #334155 !important;
-    }
+      .dark .border-gray-200 {
+        border-color: #334155 !important;
+      }
 
-    .dark hr {
-      border-color: #334155;
-    }
+      .dark hr {
+        border-color: #334155;
+      }
 
-    .dark .shadow-sm,
-    .dark .shadow-xl,
-    .dark .shadow-lg {
-      box-shadow: 0 0 20px rgba(0, 0, 0, .4) !important;
-    }
+      .dark .shadow-sm,
+      .dark .shadow-xl,
+      .dark .shadow-lg {
+        box-shadow: 0 0 20px rgba(0, 0, 0, .4) !important;
+      }
 
-    .dark #themeToggle {
-      background: #1e293b;
-      border-color: #475569;
-    }
+      .dark #themeToggle {
+        background: #1e293b;
+        border-color: #475569;
+      }
 
-    .dark section {
-      background: #0f172a !important;
-    }
+      .dark section {
+        background: #0f172a !important;
+      }
 
-    .dark .rounded-2xl {
-      background: #1e293b !important;
-      color: white !important;
-    }
+      .dark .rounded-2xl {
+        background: #1e293b !important;
+        color: white !important;
+      }
 
-    .dark .rounded-2xl h1,
-    .dark .rounded-2xl h2,
-    .dark .rounded-2xl h3,
-    .dark .rounded-2xl p,
-    .dark .rounded-2xl span {
-      color: white !important;
-    }
+      .dark .rounded-2xl h1,
+      .dark .rounded-2xl h2,
+      .dark .rounded-2xl h3,
+      .dark .rounded-2xl p,
+      .dark .rounded-2xl span {
+        color: white !important;
+      }
 
-    .dark input,
-    .dark select {
-      background: #334155 !important;
-      color: white !important;
-      border-color: #475569 !important;
-    }
+      .dark input,
+      .dark select {
+        background: #334155 !important;
+        color: white !important;
+        border-color: #475569 !important;
+      }
 
-    .dark #registerModal>div,
-    .dark #loginModal>div {
-      background: #1e293b !important;
-    }
+      .dark #registerModal>div,
+      .dark #loginModal>div {
+        background: #1e293b !important;
+      }
 
-    .dark #stickyHeader {
-      background: rgba(15, 23, 42, .95) !important;
-    }
+      .dark #stickyHeader {
+        background: rgba(15, 23, 42, .95) !important;
+      }
 
-    .dark .category-card {
-      background: #1e293b !important;
-      border: 1px solid #334155;
-    }
+      .dark .category-card {
+        background: #1e293b !important;
+        border: 1px solid #334155;
+      }
 
-    /* ===== LOADER ===== */
-    #pageLoader {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity .5s ease, visibility .5s ease;
-    }
+      /* ===== LOADER ===== */
+      #pageLoader {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity .5s ease, visibility .5s ease;
+      }
 
-    #pageLoader.hide {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+      #pageLoader.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
 
-    .dark #pageLoader {
-      background: #0f172a;
-    }
+      .dark #pageLoader {
+        background: #0f172a;
+      }
 
-    #pizzaSpin {
-      font-size: 64px;
-      animation: spin 1s linear infinite;
-    }
+      #pizzaSpin {
+        font-size: 64px;
+        animation: spin 1s linear infinite;
+      }
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
 
-    #loaderBar {
-      width: 160px;
-      height: 4px;
-      background: #fde3cf;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 22px;
-    }
+      #loaderBar {
+        width: 160px;
+        height: 4px;
+        background: #fde3cf;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 22px;
+      }
 
-    #loaderBarFill {
-      height: 100%;
-      width: 0%;
-      background: #FF7010;
-      border-radius: 4px;
-      animation: loaderFill 1.3s ease forwards;
-    }
+      #loaderBarFill {
+        height: 100%;
+        width: 0%;
+        background: #FF7010;
+        border-radius: 4px;
+        animation: loaderFill 1.3s ease forwards;
+      }
 
-    @keyframes loaderFill {
-      to { width: 100%; }
-    }
-  </style>
-</head>
+      @keyframes loaderFill {
+        to { width: 100%; }
+      }
+    </style>
+  </head>
 
-<body id="body" class="bg-gray-100 duration-300">
+  <body id="body" class="bg-gray-100 duration-300">
 
-  <!-- Page loader -->
-  <div id="pageLoader">
-    <span id="pizzaSpin">🍕</span>
-    <p data-i18n="loadingText" class="mt-4 text-lg font-medium text-gray-600">Загрузка вкусного...</p>
-    <div id="loaderBar"><div id="loaderBarFill"></div></div>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 flex flex-nowrap items-center justify-between gap-1 sm:gap-3 py-2 sm:py-3 overflow-x-auto">
-    <svg class="shrink-0 hidden xs:block sm:block" xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
-      fill="#c46c08">
-      <path
-        d="M536.5-503.5Q560-527 560-560t-23.5-56.5Q513-640 480-640t-56.5 23.5Q400-593 400-560t23.5 56.5Q447-480
-        480-480t56.5-23.5ZM480-186q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59
-         162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
-    </svg>
-
-    <select id="districtSelect" class="shrink-0 text-[11px] sm:text-base rounded px-1 py-1 sm:px-2 max-w-[92px] sm:max-w-none truncate focus:outline-none focus:ring-2 focus:ring-red-50">
-      <option selected>Yunusobod tumani</option>
-      <option>Yangihayot tumani</option>
-      <option>Yakkasaroy tumani</option>
-      <option>Yashnobod tumani</option>
-      <option>Uchtepa tumani</option>
-      <option>Shayxontohur tumani</option>
-      <option>Sergeli tumani</option>
-      <option>Olmazor tumani</option>
-      <option>Mirobod tumani</option>
-      <option>Mirzo Ulug'bek tumani</option>
-      <option>Chilonzor tumani</option>
-      <option>Bektemir tumani</option>
-    </select>
-
-
-
-    <h1 data-i18n="checkAddress" class="shrink-0 min-w-0 truncate text-[11px] sm:text-base max-w-[70px] sm:max-w-none">Проверить адрес</h1>
-    <h1 data-i18n="avgTime" class="hidden md:block text-sm sm:text-base">Среднее время доставки*: 00:24:19</h1>
-    <h1 data-i18n="workHours" class="hidden lg:block text-sm sm:text-base">Время работы: c 11:00 до 23:00</h1>
-
-    <select id="langSelect" class="shrink-0 text-[11px] sm:text-base rounded px-1 py-1 sm:px-2 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-red-50">
-      <option value="ru">RU </option>
-      <option value="uz">UZ </option>
-      <option value="en">EN </option>
-    </select>
-
-    <button id="themeToggle" class="shrink-0 w-8 h-8 sm:w-11 sm:h-11 rounded-full border border-gray-300 bg-white
-flex items-center justify-center text-base sm:text-2xl
-hover:rotate-180 duration-500">
-      🌙
-    </button>
-    <button id="openModal" class="shrink-0 text-black gap-2 flex items-center text-sm sm:text-base">
-     <img class="w-7 h-6 sm:w-10 sm:h-9" src="./img/image copy 34.png" alt="img"> <span id="authLabel" data-i18n="loginAccount" class="hidden sm:inline">Войти в аккаунт</span>
-    </button>
-
-    <!-- Register Modal -->
-    <div id="registerModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
-      <div class="bg-white w-[800px] max-w-full rounded-lg relative p-6 sm:p-12">
-        <button id="closeModal" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">&times;</button>
-        <h2 data-i18n="regTitle" class="text-2xl sm:text-3xl md:text-5xl font-bold text-center">
-          Зарегистрировать аккаунт
-        </h2>
-        <p data-i18n="regSubtitle" data-i18n-html class="text-center text-gray-600 mt-3">
-          Сможете быстро оформлять заказы,<br>
-          использовать бонусы
-        </p>
-
-        <form id="registerForm" class="w-full max-w-[360px] mx-auto mt-8 space-y-4">
-          <input id="regName" type="text" required data-i18n-placeholder="phName" placeholder="имя" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input id="regEmail" type="email" required data-i18n-placeholder="phEmail" placeholder="электронная почта"
-            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input id="regPhone" type="text" required data-i18n-placeholder="phPhone" placeholder="+998" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input id="regPassword" type="password" required data-i18n-placeholder="phPassword" placeholder="пароль"
-            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <button id="myButton" type="submit" data-i18n="regBtn" class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
-            Регистрация
-          </button>
-        </form>
-        <p data-i18n="agreeText" class="text-center text-gray-500 mt-6">
-          Продолжая, вы соглашаетесь...
-        </p>
-        <p class="text-center mt-4 switch-link">
-          <span data-i18n="haveAccount">y вас уже есть аккаунт?</span>
-          <button data-i18n="toLoginLink" class="text-orange-600 cursor-pointer switch-link" id="toLogin">Авторизоваться</button>
-        </p>
-      </div>
+    <!-- Page loader -->
+    <div id="pageLoader">
+      <span id="pizzaSpin">🍕</span>
+      <p data-i18n="loadingText" class="mt-4 text-lg font-medium text-gray-600">Загрузка вкусного...</p>
+      <div id="loaderBar"><div id="loaderBarFill"></div></div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
-      <div class="bg-white w-[800px] max-w-full rounded-lg relative p-6 sm:p-12">
-        <button id="closeLoginModal" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">&times;</button>
-        <h2 data-i18n="loginTitle" class="text-2xl sm:text-3xl md:text-5xl font-bold text-center">
-          Вход в аккаунт
-        </h2>
-        <p data-i18n="regSubtitle" data-i18n-html class="text-center text-gray-600 mt-3">
-          Сможете быстро оформлять заказы,<br>
-          использовать бонусы
-        </p>
-
-        <form id="loginForm" class="w-full max-w-[360px] mx-auto mt-8 space-y-4">
-          <input id="loginEmail" type="email" required data-i18n-placeholder="phEmail" placeholder="электронная почта"
-            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <input id="loginPassword" type="password" required data-i18n-placeholder="phPassword" placeholder="пароль"
-            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <button type="submit" data-i18n="loginBtn"
-            class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
-            Вход
-          </button>
-        </form>
-        <p data-i18n="agreeText" class="text-center text-gray-500 mt-6">
-          Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским соглашением
-        </p>
-        <p class="text-center mt-4 switch-link">
-          <span data-i18n="needAccount">Нужен аккаунт?</span>
-          <button data-i18n="toRegisterLink" class="text-orange-600 cursor-pointer switch-link" id="toRegister">Войти</button>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <hr class="border-gray-300 my-4">
-
-  <div id="stickyHeader" class="top-0 left-0 w-full z-10
-      bg-white/40
-      backdrop-blur-xl
-      border-b border-white/20
-      shadow-sm sticky p-[5px] max-w-8xl mx-auto flex flex-wrap items-center justify-between gap-4 px-4 sm:px-6 py-3">
-
-    <div class="flex items-center gap-2">
-      <button id="openSidebar" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-black/5"
-        aria-label="Открыть меню">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-      <span class="font-400 text-lg sm:text-xl">🍕Куда пицца</span>
-    </div>
-
-    <nav id="stickyMenu" class="hidden md:flex items-center gap-12 text-sm sm:text-base font-medium">
-      <a href="#aksiyalar" data-target="aksiyalar" data-i18n="navPromo" class="nav-link">Акции</a>
-      <a href="#pizza" data-target="pizza" data-i18n="navPizza" class="nav-link">Пицца</a>
-      <a href="#sushi" data-target="sushi" data-i18n="navSushi" class="nav-link">Суши</a>
-      <a href="#napitki" data-target="napitki" data-i18n="navDrinks" class="nav-link">Напитки</a>
-      <a href="#zakuski" data-target="zakuski" data-i18n="navSnacks" class="nav-link">Закуски</a>
-      <a href="#combo" data-target="combo" data-i18n="navCombo" class="nav-link">Комбо</a>
-      <a href="#desserts" data-target="desserts" data-i18n="navDesserts" class="nav-link">Десерты</a>
-      <a href="#sauces" data-target="sauces" data-i18n="navSauces" class="nav-link">Соусы</a>
-    </nav>
-
-    <button id="cartBtn"
-      class="relative bg-orange-400 hover:bg-orange-600 text-white rounded-2xl px-4 sm:px-6 py-1 flex items-center gap-2 font-semibold text-sm sm:text-base">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 -960 960 960" fill="white">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 flex flex-nowrap items-center justify-between gap-1 sm:gap-3 py-2 sm:py-3 overflow-x-auto">
+      <svg class="shrink-0 hidden xs:block sm:block" xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
+        fill="#c46c08">
         <path
-          d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Z" />
+          d="M536.5-503.5Q560-527 560-560t-23.5-56.5Q513-640 480-640t-56.5 23.5Q400-593 400-560t23.5 56.5Q447-480
+          480-480t56.5-23.5ZM480-186q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59
+          162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
       </svg>
-      <span id="cartTotalText">0 сум</span>
-      <span id="cartCountBadge" class="hidden absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-    </button>
-  </div>
 
-  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-[9998] md:hidden"></div>
+      <select id="districtSelect" class="shrink-0 text-[11px] sm:text-base rounded px-1 py-1 sm:px-2 max-w-[92px] sm:max-w-none truncate focus:outline-none focus:ring-2 focus:ring-red-50">
+        <option selected>Yunusobod tumani</option>
+        <option>Yangihayot tumani</option>
+        <option>Yakkasaroy tumani</option>
+        <option>Yashnobod tumani</option>
+        <option>Uchtepa tumani</option>
+        <option>Shayxontohur tumani</option>
+        <option>Sergeli tumani</option>
+        <option>Olmazor tumani</option>
+        <option>Mirobod tumani</option>
+        <option>Mirzo Ulug'bek tumani</option>
+        <option>Chilonzor tumani</option>
+        <option>Bektemir tumani</option>
+      </select>
 
-  <aside id="mobileSidebar"
-    class="fixed top-0 left-0 h-full w-72 max-w-[80%] bg-white z-[9999] shadow-xl md:hidden flex flex-col">
-    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-pizza-slice text-orange-500 text-2xl"></i>
-        <span class="text-lg font-medium">Куда пицца</span>
-      </div>
-      <button id="closeSidebar" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/5"
-        aria-label="Закрыть меню">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+
+
+      <h1 data-i18n="checkAddress" class="shrink-0 min-w-0 truncate text-[11px] sm:text-base max-w-[70px] sm:max-w-none">Проверить адрес</h1>
+      <h1 data-i18n="avgTime" class="hidden md:block text-sm sm:text-base">Среднее время доставки*: 00:24:19</h1>
+      <h1 data-i18n="workHours" class="hidden lg:block text-sm sm:text-base">Время работы: c 11:00 до 23:00</h1>
+
+      <select id="langSelect" class="shrink-0 text-[11px] sm:text-base rounded px-1 py-1 sm:px-2 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-red-50">
+        <option value="ru">RU </option>
+        <option value="uz">UZ </option>
+        <option value="en">EN </option>
+      </select>
+
+      <button id="themeToggle" class="shrink-0 w-8 h-8 sm:w-11 sm:h-11 rounded-full border border-gray-300 bg-white
+  flex items-center justify-center text-base sm:text-2xl
+  hover:rotate-180 duration-500">
+        🌙
       </button>
-    </div>
-
-    <nav class="flex-1 overflow-y-auto py-3">
-      <a href="#aksiyalar" data-target="aksiyalar"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-fire w-5 text-red-500"></i> <span data-i18n="navPromo">Акции</span>
-      </a>
-      <a href="#pizza" data-target="pizza"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-pizza-slice w-5 text-orange-500"></i> <span data-i18n="navPizza">Пицца</span>
-      </a>
-      <a href="#sushi" data-target="sushi"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-fish w-5 text-orange-500"></i> <span data-i18n="navSushi">Суши</span>
-      </a>
-      <a href="#napitki" data-target="napitki"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-glass-water w-5 text-orange-500"></i> <span data-i18n="navDrinks">Напитки</span>
-      </a>
-      <a href="#zakuski" data-target="zakuski"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-burger w-5 text-orange-500"></i> <span data-i18n="navSnacks">Закуски</span>
-      </a>
-      <a href="#combo" data-target="combo"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-box-open w-5 text-orange-500"></i> <span data-i18n="navCombo">Комбо</span>
-      </a>
-      <a href="#desserts" data-target="desserts"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-cake-candles w-5 text-orange-500"></i> <span data-i18n="navDesserts">Десерты</span>
-      </a>
-      <a href="#sauces" data-target="sauces"
-        class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
-        <i class="fa-solid fa-bowl-food w-5 text-orange-500"></i> <span data-i18n="navSauces">Соусы</span>
-      </a>
-    </nav>
-
-    <div data-i18n="workHours" class="px-5 py-4 border-t border-gray-200 text-sm text-gray-500">
-      Время работы: c 11:00 до 23:00
-    </div>
-  </aside>
-
-  <!-- Cart Drawer -->
-  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-[9998]"></div>
-
-  <aside id="cartDrawer"
-    class="fixed top-0 right-0 h-full w-96 max-w-[90%] bg-white z-[9999] shadow-xl flex flex-col">
-    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
-      <h2 data-i18n="cartTitle" class="text-xl font-semibold">Ваша корзина</h2>
-      <button id="closeCart" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/5"
-        aria-label="Закрыть корзину">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+      <button id="openModal" class="shrink-0 text-black gap-2 flex items-center text-sm sm:text-base">
+      <img class="w-7 h-6 sm:w-10 sm:h-9" src="./img/image copy 34.png" alt="img"> <span id="authLabel" data-i18n="loginAccount" class="hidden sm:inline">Войти в аккаунт</span>
       </button>
-    </div>
 
-    <div id="cartItemsList" class="flex-1 overflow-y-auto px-5 py-4 space-y-4">
-      <p id="cartEmptyMsg" data-i18n="cartEmpty" class="text-gray-500 text-center mt-10">Корзина пуста</p>
-    </div>
-
-    <div class="px-5 py-4 border-t border-gray-200 space-y-3">
-      <div class="flex items-center justify-between text-lg font-semibold">
-        <span data-i18n="cartTotalLabel">Итого:</span>
-        <span id="cartSubtotal">0 сум</span>
-      </div>
-      <button id="checkoutBtn" data-i18n="checkoutBtn"
-        class="w-full h-12 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg font-semibold">
-        Оформить заказ
-      </button>
-    </div>
-  </aside>
-
-  <!-- Checkout Modal -->
-  <div id="checkoutModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
-    <div class="bg-white w-[500px] max-w-full rounded-lg relative p-6 sm:p-10">
-      <button id="closeCheckout" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">
-        &times;
-      </button>
-      <h2 data-i18n="checkoutTitle" class="text-2xl sm:text-3xl font-bold text-center">
-        Оформление заказа
-      </h2>
-
-      <form id="checkoutForm" class="w-full mx-auto mt-8 space-y-4">
-        <input id="checkoutName" type="text" required data-i18n-placeholder="phFullName" placeholder="Ваше имя"
-          class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-        <input id="checkoutPhone" type="text" required data-i18n-placeholder="phPhone" placeholder="+998"
-          class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-        <input id="checkoutAddress" type="text" required data-i18n-placeholder="phAddress" placeholder="Адрес доставки"
-          class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-        <select id="checkoutPayment" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
-          <option data-i18n="payCash" value="cash">Наличными курьеру</option>
-          <option data-i18n="payCard" value="card">Картой курьеру</option>
-        </select>
-
-        <div class="flex items-center justify-between text-lg font-semibold pt-2">
-          <span data-i18n="toPay">К оплате:</span>
-          <span id="checkoutTotal">0 сум</span>
-        </div>
-
-        <button type="submit" data-i18n="confirmOrder" class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
-          Подтвердить заказ
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <section id="categoriesSection" class="bg-white/40
-        backdrop-blur-xl
-        border-b border-white/20
-        shadow-sm bg-gray-100 py-8">
-    <div class="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-5 px-2 sm:px-4">
-
-      <div data-target="aksiyalar"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-fire text-2xl sm:text-4xl text-red-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#aksiyalar" data-i18n="navPromo">Акции</a></p>
-      </div>
-
-      <div data-target="pizza"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-pizza-slice text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#pizza" data-i18n="navPizza">Пицца</a></p>
-      </div>
-
-      <div data-target="sushi"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-fish text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#sushi" data-i18n="navSushi">Суши</a></p>
-      </div>
-
-      <div data-target="napitki"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-glass-water text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#napitki" data-i18n="navDrinks">Напитки</a></p>
-      </div>
-
-      <div data-target="zakuski"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-burger text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#zakuski" data-i18n="navSnacks">Закуски</a></p>
-      </div>
-
-      <div data-target="combo"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-box-open text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#combo" data-i18n="navCombo">Комбо</a></p>
-      </div>
-
-      <div data-target="desserts"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-cake-candles text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#desserts" data-i18n="navDesserts">Десерты</a></p>
-      </div>
-
-      <div data-target="sauces"
-        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-bowl-food text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#sauces" data-i18n="navSauces">Соусы</a></p>
-      </div>
-    </div>
-  </section>
-
-  <div id="aksiyalar" class="grid grid-cols-2 lg:flex lg:flex-wrap pb-19 justify-center items-center gap-2 sm:gap-4 mt-22 px-4">
-
-    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
-    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
-    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
-    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
-  </div>
-
-  <hr class="border-gray-300 my-4">
-  <br><br>
-  <section class="bg-gray-100 py-8">
-    <div class="max-w-7xl mx-auto bg-white rounded-xl p-3 shadow-sm px-4 sm:px-6">
-      <div class="flex flex-col sm:flex-row items-center gap-5">
-        <h2 data-i18n="checkAddrTitle" class="text-xl sm:text-2xl lg:text-3xl font-medium whitespace-nowrap">
-          Проверить адрес доставки
-        </h2>
-        <div class="relative flex-1 w-full">
-          <i class="fa-solid fa-location-dot absolute left-5 top-1/2 -translate-y-1/2 text-orange-500 text-xl"></i>
-          <input type="text" data-i18n-placeholder="phAddr" placeholder="Адрес"
-            class="w-full h-14 pl-14 pr-4 rounded-xl border border-gray-300 outline-none focus:border-orange-500 text-lg">
-        </div>
-        <button data-i18n="checkBtn"
-          class="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-10 h-14 rounded-xl text-lg font-medium transition">
-          Проверить
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <div class="bg-gray-100 duration-300" id="pizza">
-    <h1 data-i18n="navPizza" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Пицца</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-pizza" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div id="sushi">
-    <h1 data-i18n="navSushi" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Суши</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-sushi" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div id="napitki">
-    <h1 data-i18n="navDrinks" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Напитки</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-napitki" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div id="zakuski">
-    <h1 data-i18n="navSnacks" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Закуски</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-zakuski" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div id="combo">
-    <h1 data-i18n="navCombo" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Комбо</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-combo" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div id="desserts">
-    <h1 data-i18n="navDesserts" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Десерты</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-desserts" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div id="sauces">
-    <h1 data-i18n="navSauces" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Соусы</h1>
-    <section class="bg-[#f5f5f7] py-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-sauces" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
-      </div>
-    </section>
-  </div>
-
-  <div class="max-w-4xl mx-auto mt-10 px-4">
-    <h1 data-i18n="deliveryTitle" class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
-      Доставка пиццы
-    </h1>
-
-    <div id="textBox" class="relative overflow-hidden max-h-52 transition-all duration-500">
-      <p data-i18n="deliveryP1" class="text-base sm:text-lg leading-7 sm:leading-8">
-        Захотелось чего-то вкусного и сытного?
-      </p>
-
-      <h2 data-i18n="howToOrderTitle" class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-6">
-        Как сделать заказ
-      </h2>
-
-      <p data-i18n="howToOrderP" class="text-base sm:text-lg leading-7 sm:leading-8 mt-4">
-        Доставка пиццы — это когда Вам не нужно никуда ехать.
-      </p>
-
-      <div id="fade" class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
-    </div>
-
-    <button id="toggleBtn" data-i18n="showMore" class="mt-5 text-orange-500 font-semibold text-lg sm:text-xl">
-      Показать полностью
-    </button>
-  </div>
-
-  <footer class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12">
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-bold flex items-center gap-2">
-          🍕 Куда пицца
-        </h2>
-      </div>
-
-      <div>
-        <h3 data-i18n="footerCompany" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-5">Куда пицца</h3>
-        <ul class="space-y-4 text-base sm:text-lg lg:text-xl">
-          <li><a data-i18n="footerAbout" class="hover:text-orange-500" href="#">O компании</a></li>
-          <li><a data-i18n="footerTerms" class="hover:text-orange-500" href="#">Пользовательское соглашение</a></li>
-          <li><a data-i18n="footerWarranty" class="hover:text-orange-500" href="#">Условия гарантии</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 data-i18n="footerHelp" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-5">Помощь</h3>
-        <ul class="space-y-4 text-base sm:text-lg lg:text-xl">
-          <li><a data-i18n="footerRestaurant" class="hover:text-orange-500" href="#">Ресторан</a></li>
-          <li><a data-i18n="footerContactsLink" class="hover:text-orange-500" href="#">Контакты</a></li>
-          <li><a data-i18n="footerSupport" class="hover:text-orange-500" href="#">Поддержка</a></li>
-          <li><a data-i18n="footerTrack" class="hover:text-orange-500" href="#">Отследить заказ</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 data-i18n="footerContacts" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-5">Контакты</h3>
-        <div class="space-y-4 text-base sm:text-lg lg:text-xl">
-          <p class="hover:text-orange-500">📞 +998 (90) 123-45-67</p>
-          <p data-i18n="footerAddress" class="hover:text-orange-500 flex items-center gap-2">
-            <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#c46c08">
-              <path
-                d="M536.5-503.5Q560-527 560-560t-23.5-56.5Q513-640 480-640t-56.5 23.5Q400-593 400-560t23.5 56.5Q447-480
-        480-480t56.5-23.5ZM480-186q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59
-         162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
-            </svg> Ташкент, Юнусабадский район
+      <!-- Register Modal -->
+      <div id="registerModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+        <div class="bg-white w-[800px] max-w-full rounded-lg relative p-6 sm:p-12">
+          <button id="closeModal" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">&times;</button>
+          <h2 data-i18n="regTitle" class="text-2xl sm:text-3xl md:text-5xl font-bold text-center">
+            Зарегистрировать аккаунт
+          </h2>
+          <p data-i18n="regSubtitle" data-i18n-html class="text-center text-gray-600 mt-3">
+            Сможете быстро оформлять заказы,<br>
+            использовать бонусы
           </p>
-          <p class="hover:text-orange-500 flex items-center gap-2"><i class="fa-brands fa-facebook text-xl text-orange-500"></i> Facebook</p>
-          <p class="hover:text-orange-500 flex items-center gap-2"><i class="fa-brands fa-instagram text-xl text-orange-500"></i> Instagram</p>
+
+          <form id="registerForm" class="w-full max-w-[360px] mx-auto mt-8 space-y-4">
+            <input id="regName" type="text" required data-i18n-placeholder="phName" placeholder="имя" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <input id="regEmail" type="email" required data-i18n-placeholder="phEmail" placeholder="электронная почта"
+              class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <input id="regPhone" type="text" required data-i18n-placeholder="phPhone" placeholder="+998" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <input id="regPassword" type="password" required data-i18n-placeholder="phPassword" placeholder="пароль"
+              class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <button id="myButton" type="submit" data-i18n="regBtn" class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
+              Регистрация
+            </button>
+          </form>
+          <p data-i18n="agreeText" class="text-center text-gray-500 mt-6">
+            Продолжая, вы соглашаетесь...
+          </p>
+          <p class="text-center mt-4 switch-link">
+            <span data-i18n="haveAccount">y вас уже есть аккаунт?</span>
+            <button data-i18n="toLoginLink" class="text-orange-600 cursor-pointer switch-link" id="toLogin">Авторизоваться</button>
+          </p>
+        </div>
+      </div>
+
+      <!-- Login Modal -->
+      <div id="loginModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+        <div class="bg-white w-[800px] max-w-full rounded-lg relative p-6 sm:p-12">
+          <button id="closeLoginModal" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">&times;</button>
+          <h2 data-i18n="loginTitle" class="text-2xl sm:text-3xl md:text-5xl font-bold text-center">
+            Вход в аккаунт
+          </h2>
+          <p data-i18n="regSubtitle" data-i18n-html class="text-center text-gray-600 mt-3">
+            Сможете быстро оформлять заказы,<br>
+            использовать бонусы
+          </p>
+
+          <form id="loginForm" class="w-full max-w-[360px] mx-auto mt-8 space-y-4">
+            <input id="loginEmail" type="email" required data-i18n-placeholder="phEmail" placeholder="электронная почта"
+              class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <input id="loginPassword" type="password" required data-i18n-placeholder="phPassword" placeholder="пароль"
+              class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <button type="submit" data-i18n="loginBtn"
+              class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
+              Вход
+            </button>
+          </form>
+          <p data-i18n="agreeText" class="text-center text-gray-500 mt-6">
+            Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским соглашением
+          </p>
+          <p class="text-center mt-4 switch-link">
+            <span data-i18n="needAccount">Нужен аккаунт?</span>
+            <button data-i18n="toRegisterLink" class="text-orange-600 cursor-pointer switch-link" id="toRegister">Войти</button>
+          </p>
         </div>
       </div>
     </div>
 
     <hr class="border-gray-300 my-4">
-    <p data-i18n="footerCopyright" class="text-gray-500">© Copyright 2021 — Куда пицца</p>
-  </footer>
 
-  <script src="index.js"></script>
-</body>
+    <div id="stickyHeader" class="top-0 left-0 w-full z-10
+        bg-white/40
+        backdrop-blur-xl
+        border-b border-white/20
+        shadow-sm sticky p-[5px] max-w-8xl mx-auto flex flex-wrap items-center justify-between gap-4 px-4 sm:px-6 py-3">
 
-</html>
+      <div class="flex items-center gap-2">
+        <button id="openSidebar" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-black/5"
+          aria-label="Открыть меню">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <span class="font-400 text-lg sm:text-xl">🍕Куда пицца</span>
+      </div>
+
+      <nav id="stickyMenu" class="hidden md:flex items-center gap-12 text-sm sm:text-base font-medium">
+        <a href="#aksiyalar" data-target="aksiyalar" data-i18n="navPromo" class="nav-link">Акции</a>
+        <a href="#pizza" data-target="pizza" data-i18n="navPizza" class="nav-link">Пицца</a>
+        <a href="#sushi" data-target="sushi" data-i18n="navSushi" class="nav-link">Суши</a>
+        <a href="#napitki" data-target="napitki" data-i18n="navDrinks" class="nav-link">Напитки</a>
+        <a href="#zakuski" data-target="zakuski" data-i18n="navSnacks" class="nav-link">Закуски</a>
+        <a href="#combo" data-target="combo" data-i18n="navCombo" class="nav-link">Комбо</a>
+        <a href="#desserts" data-target="desserts" data-i18n="navDesserts" class="nav-link">Десерты</a>
+        <a href="#sauces" data-target="sauces" data-i18n="navSauces" class="nav-link">Соусы</a>
+      </nav>
+
+      <button id="cartBtn"
+        class="relative bg-orange-400 hover:bg-orange-600 text-white rounded-2xl px-4 sm:px-6 py-1 flex items-center gap-2 font-semibold text-sm sm:text-base">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 -960 960 960" fill="white">
+          <path
+            d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Z" />
+        </svg>
+        <span id="cartTotalText">0 сум</span>
+        <span id="cartCountBadge" class="hidden absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+      </button>
+    </div>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-[9998] md:hidden"></div>
+
+    <aside id="mobileSidebar"
+      class="fixed top-0 left-0 h-full w-72 max-w-[80%] bg-white z-[9999] shadow-xl md:hidden flex flex-col">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-pizza-slice text-orange-500 text-2xl"></i>
+          <span class="text-lg font-medium">Куда пицца</span>
+        </div>
+        <button id="closeSidebar" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/5"
+          aria-label="Закрыть меню">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto py-3">
+        <a href="#aksiyalar" data-target="aksiyalar"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-fire w-5 text-red-500"></i> <span data-i18n="navPromo">Акции</span>
+        </a>
+        <a href="#pizza" data-target="pizza"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-pizza-slice w-5 text-orange-500"></i> <span data-i18n="navPizza">Пицца</span>
+        </a>
+        <a href="#sushi" data-target="sushi"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-fish w-5 text-orange-500"></i> <span data-i18n="navSushi">Суши</span>
+        </a>
+        <a href="#napitki" data-target="napitki"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-glass-water w-5 text-orange-500"></i> <span data-i18n="navDrinks">Напитки</span>
+        </a>
+        <a href="#zakuski" data-target="zakuski"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-burger w-5 text-orange-500"></i> <span data-i18n="navSnacks">Закуски</span>
+        </a>
+        <a href="#combo" data-target="combo"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-box-open w-5 text-orange-500"></i> <span data-i18n="navCombo">Комбо</span>
+        </a>
+        <a href="#desserts" data-target="desserts"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-cake-candles w-5 text-orange-500"></i> <span data-i18n="navDesserts">Десерты</span>
+        </a>
+        <a href="#sauces" data-target="sauces"
+          class="sidebar-link flex items-center gap-3 px-5 py-3 text-gray-700 active:bg-orange-50 active:text-orange-500">
+          <i class="fa-solid fa-bowl-food w-5 text-orange-500"></i> <span data-i18n="navSauces">Соусы</span>
+        </a>
+      </nav>
+
+      <div data-i18n="workHours" class="px-5 py-4 border-t border-gray-200 text-sm text-gray-500">
+        Время работы: c 11:00 до 23:00
+      </div>
+    </aside>
+
+    <!-- Cart Drawer -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-[9998]"></div>
+
+    <aside id="cartDrawer"
+      class="fixed top-0 right-0 h-full w-96 max-w-[90%] bg-white z-[9999] shadow-xl flex flex-col">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+        <h2 data-i18n="cartTitle" class="text-xl font-semibold">Ваша корзина</h2>
+        <button id="closeCart" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/5"
+          aria-label="Закрыть корзину">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="cartItemsList" class="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+        <p id="cartEmptyMsg" data-i18n="cartEmpty" class="text-gray-500 text-center mt-10">Корзина пуста</p>
+      </div>
+
+      <div class="px-5 py-4 border-t border-gray-200 space-y-3">
+        <div class="flex items-center justify-between text-lg font-semibold">
+          <span data-i18n="cartTotalLabel">Итого:</span>
+          <span id="cartSubtotal">0 сум</span>
+        </div>
+        <button id="checkoutBtn" data-i18n="checkoutBtn"
+          class="w-full h-12 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg font-semibold">
+          Оформить заказ
+        </button>
+      </div>
+    </aside>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="pl-2 fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+      <div class="bg-white w-[500px] max-w-full rounded-lg relative p-6 sm:p-10">
+        <button id="closeCheckout" class="absolute top-4 right-5 text-3xl text-gray-500 hover:text-black">
+          &times;
+        </button>
+        <h2 data-i18n="checkoutTitle" class="text-2xl sm:text-3xl font-bold text-center">
+          Оформление заказа
+        </h2>
+
+        <form id="checkoutForm" class="w-full mx-auto mt-8 space-y-4">
+          <input id="checkoutName" type="text" required data-i18n-placeholder="phFullName" placeholder="Ваше имя"
+            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <input id="checkoutPhone" type="text" required data-i18n-placeholder="phPhone" placeholder="+998"
+            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <input id="checkoutAddress" type="text" required data-i18n-placeholder="phAddress" placeholder="Адрес доставки"
+            class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+          <select id="checkoutPayment" class="w-full h-12 bg-gray-100 rounded-lg px-4 outline-none">
+            <option data-i18n="payCash" value="cash">Наличными курьеру</option>
+            <option data-i18n="payCard" value="card">Картой курьеру</option>
+          </select>
+
+          <div class="flex items-center justify-between text-lg font-semibold pt-2">
+            <span data-i18n="toPay">К оплате:</span>
+            <span id="checkoutTotal">0 сум</span>
+          </div>
+
+          <button type="submit" data-i18n="confirmOrder" class="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold">
+            Подтвердить заказ
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <section id="categoriesSection" class="bg-white/40
+          backdrop-blur-xl
+          border-b border-white/20
+          shadow-sm bg-gray-100 py-8">
+      <div class="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-5 px-2 sm:px-4">
+
+        <div data-target="aksiyalar"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-fire text-2xl sm:text-4xl text-red-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#aksiyalar" data-i18n="navPromo">Акции</a></p>
+        </div>
+
+        <div data-target="pizza"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-pizza-slice text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#pizza" data-i18n="navPizza">Пицца</a></p>
+        </div>
+
+        <div data-target="sushi"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-fish text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#sushi" data-i18n="navSushi">Суши</a></p>
+        </div>
+
+        <div data-target="napitki"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-glass-water text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#napitki" data-i18n="navDrinks">Напитки</a></p>
+        </div>
+
+        <div data-target="zakuski"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-burger text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#zakuski" data-i18n="navSnacks">Закуски</a></p>
+        </div>
+
+        <div data-target="combo"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-box-open text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#combo" data-i18n="navCombo">Комбо</a></p>
+        </div>
+
+        <div data-target="desserts"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-cake-candles text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#desserts" data-i18n="navDesserts">Десерты</a></p>
+        </div>
+
+        <div data-target="sauces"
+          class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+          <i class="fa-solid fa-bowl-food text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+          <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#sauces" data-i18n="navSauces">Соусы</a></p>
+        </div>
+      </div>
+    </section>
+
+    <div id="aksiyalar" class="grid grid-cols-2 lg:flex lg:flex-wrap pb-19 justify-center items-center gap-2 sm:gap-4 mt-22 px-4">
+
+      <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
+      <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
+      <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
+      <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
+    </div>
+
+    <hr class="border-gray-300 my-4">
+    <br><br>
+    <section class="bg-gray-100 py-8">
+      <div class="max-w-7xl mx-auto bg-white rounded-xl p-3 shadow-sm px-4 sm:px-6">
+        <div class="flex flex-col sm:flex-row items-center gap-5">
+          <h2 data-i18n="checkAddrTitle" class="text-xl sm:text-2xl lg:text-3xl font-medium whitespace-nowrap">
+            Проверить адрес доставки
+          </h2>
+          <div class="relative flex-1 w-full">
+            <i class="fa-solid fa-location-dot absolute left-5 top-1/2 -translate-y-1/2 text-orange-500 text-xl"></i>
+            <input type="text" data-i18n-placeholder="phAddr" placeholder="Адрес"
+              class="w-full h-14 pl-14 pr-4 rounded-xl border border-gray-300 outline-none focus:border-orange-500 text-lg">
+          </div>
+          <button data-i18n="checkBtn"
+            class="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-10 h-14 rounded-xl text-lg font-medium transition">
+            Проверить
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="bg-gray-100 duration-300" id="pizza">
+      <h1 data-i18n="navPizza" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Пицца</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-pizza" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="sushi">
+      <h1 data-i18n="navSushi" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Суши</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-sushi" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="napitki">
+      <h1 data-i18n="navDrinks" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Напитки</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-napitki" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="zakuski">
+      <h1 data-i18n="navSnacks" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Закуски</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-zakuski" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="combo">
+      <h1 data-i18n="navCombo" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Комбо</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-combo" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="desserts">
+      <h1 data-i18n="navDesserts" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Десерты</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-desserts" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="sauces">
+      <h1 data-i18n="navSauces" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Соусы</h1>
+      <section class="bg-[#f5f5f7] py-10">
+        <div class="max-w-7xl mx-auto px-4">
+          <div id="grid-sauces" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-10 px-4">
+      <h1 data-i18n="deliveryTitle" class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
+        Доставка пиццы
+      </h1>
+
+      <div id="textBox" class="relative overflow-hidden max-h-52 transition-all duration-500">
+        <p data-i18n="deliveryP1" class="text-base sm:text-lg leading-7 sm:leading-8">
+          Захотелось чего-то вкусного и сытного?
+        </p>
+
+        <h2 data-i18n="howToOrderTitle" class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-6">
+          Как сделать заказ
+        </h2>
+
+        <p data-i18n="howToOrderP" class="text-base sm:text-lg leading-7 sm:leading-8 mt-4">
+          Доставка пиццы — это когда Вам не нужно никуда ехать.
+        </p>
+
+        <div id="fade" class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
+      </div>
+
+      <button id="toggleBtn" data-i18n="showMore" class="mt-5 text-orange-500 font-semibold text-lg sm:text-xl">
+        Показать полностью
+      </button>
+    </div>
+
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold flex items-center gap-2">
+            🍕 Куда пицца
+          </h2>
+        </div>
+
+        <div>
+          <h3 data-i18n="footerCompany" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-5">Куда пицца</h3>
+          <ul class="space-y-4 text-base sm:text-lg lg:text-xl">
+            <li><a data-i18n="footerAbout" class="hover:text-orange-500" href="#">O компании</a></li>
+            <li><a data-i18n="footerTerms" class="hover:text-orange-500" href="#">Пользовательское соглашение</a></li>
+            <li><a data-i18n="footerWarranty" class="hover:text-orange-500" href="#">Условия гарантии</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 data-i18n="footerHelp" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-5">Помощь</h3>
+          <ul class="space-y-4 text-base sm:text-lg lg:text-xl">
+            <li><a data-i18n="footerRestaurant" class="hover:text-orange-500" href="#">Ресторан</a></li>
+            <li><a data-i18n="footerContactsLink" class="hover:text-orange-500" href="#">Контакты</a></li>
+            <li><a data-i18n="footerSupport" class="hover:text-orange-500" href="#">Поддержка</a></li>
+            <li><a data-i18n="footerTrack" class="hover:text-orange-500" href="#">Отследить заказ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 data-i18n="footerContacts" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-5">Контакты</h3>
+          <div class="space-y-4 text-base sm:text-lg lg:text-xl">
+            <p class="hover:text-orange-500">📞 +998 (90) 123-45-67</p>
+            <p data-i18n="footerAddress" class="hover:text-orange-500 flex items-center gap-2">
+              <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#c46c08">
+                <path
+                  d="M536.5-503.5Q560-527 560-560t-23.5-56.5Q513-640 480-640t-56.5 23.5Q400-593 400-560t23.5 56.5Q447-480
+          480-480t56.5-23.5ZM480-186q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59
+          162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
+              </svg> Ташкент, Юнусабадский район
+            </p>
+            <p class="hover:text-orange-500 flex items-center gap-2"><i class="fa-brands fa-facebook text-xl text-orange-500"></i> Facebook</p>
+            <p class="hover:text-orange-500 flex items-center gap-2"><i class="fa-brands fa-instagram text-xl text-orange-500"></i> Instagram</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-gray-300 my-4">
+      <p data-i18n="footerCopyright" class="text-gray-500">© Copyright 2021 — Куда пицца</p>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+
+  </html>

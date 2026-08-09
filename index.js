@@ -877,3 +877,5 @@ function renderCart() {
 
 const logoButton = document.getElementById("logo-btn");
 logoButton?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+
