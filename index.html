@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru" class="scroll-smooth">
 
@@ -7,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="./img/image copy 35.png">
   <title>Куда пицца</title>
 
   <style>
@@ -258,8 +258,8 @@
     <div id="loaderBar"><div id="loaderBarFill"></div></div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 py-3">
-    <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 flex flex-nowrap items-center justify-between gap-1 sm:gap-3 py-2 sm:py-3 overflow-x-auto">
+    <svg class="shrink-0 hidden xs:block sm:block" xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
       fill="#c46c08">
       <path
         d="M536.5-503.5Q560-527 560-560t-23.5-56.5Q513-640 480-640t-56.5 23.5Q400-593 400-560t23.5 56.5Q447-480
@@ -267,7 +267,7 @@
          162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
     </svg>
 
-    <select id="districtSelect" class="text-sm sm:text-base rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-50">
+    <select id="districtSelect" class="shrink-0 text-[11px] sm:text-base rounded px-1 py-1 sm:px-2 max-w-[92px] sm:max-w-none truncate focus:outline-none focus:ring-2 focus:ring-red-50">
       <option selected>Yunusobod tumani</option>
       <option>Yangihayot tumani</option>
       <option>Yakkasaroy tumani</option>
@@ -284,23 +284,23 @@
 
 
 
-    <h1 data-i18n="checkAddress" class="text-sm sm:text-base">Проверить адрес</h1>
+    <h1 data-i18n="checkAddress" class="shrink-0 min-w-0 truncate text-[11px] sm:text-base max-w-[70px] sm:max-w-none">Проверить адрес</h1>
     <h1 data-i18n="avgTime" class="hidden md:block text-sm sm:text-base">Среднее время доставки*: 00:24:19</h1>
     <h1 data-i18n="workHours" class="hidden lg:block text-sm sm:text-base">Время работы: c 11:00 до 23:00</h1>
 
-    <select id="langSelect" class="text-sm sm:text-base rounded px-2 py-1 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-red-50">
+    <select id="langSelect" class="shrink-0 text-[11px] sm:text-base rounded px-1 py-1 sm:px-2 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-red-50">
       <option value="ru">RU </option>
       <option value="uz">UZ </option>
       <option value="en">EN </option>
     </select>
 
-    <button id="themeToggle" class="w-11 h-11 rounded-full border border-gray-300 bg-white
-flex items-center justify-center text-2xl
+    <button id="themeToggle" class="shrink-0 w-8 h-8 sm:w-11 sm:h-11 rounded-full border border-gray-300 bg-white
+flex items-center justify-center text-base sm:text-2xl
 hover:rotate-180 duration-500">
       🌙
     </button>
-    <button id="openModal" class="text-black gap-2 flex items-center text-sm sm:text-base">
-     <img class="w-10 h-9" src="./img/image copy 34.png" alt="img"> <span id="authLabel" data-i18n="loginAccount" class="hidden sm:inline">Войти в аккаунт</span>
+    <button id="openModal" class="shrink-0 text-black gap-2 flex items-center text-sm sm:text-base">
+     <img class="w-7 h-6 sm:w-10 sm:h-9" src="./img/image copy 34.png" alt="img"> <span id="authLabel" data-i18n="loginAccount" class="hidden sm:inline">Войти в аккаунт</span>
     </button>
 
     <!-- Register Modal -->
@@ -538,64 +538,64 @@ hover:rotate-180 duration-500">
         backdrop-blur-xl
         border-b border-white/20
         shadow-sm bg-gray-100 py-8">
-    <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-5 px-2 sm:px-4">
 
       <div data-target="aksiyalar"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-fire text-4xl text-red-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#aksiyalar" data-i18n="navPromo">Акции</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-fire text-2xl sm:text-4xl text-red-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#aksiyalar" data-i18n="navPromo">Акции</a></p>
       </div>
 
       <div data-target="pizza"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-pizza-slice text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#pizza" data-i18n="navPizza">Пицца</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-pizza-slice text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#pizza" data-i18n="navPizza">Пицца</a></p>
       </div>
 
       <div data-target="sushi"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-fish text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#sushi" data-i18n="navSushi">Суши</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-fish text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#sushi" data-i18n="navSushi">Суши</a></p>
       </div>
 
       <div data-target="napitki"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-glass-water text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#napitki" data-i18n="navDrinks">Напитки</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-glass-water text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#napitki" data-i18n="navDrinks">Напитки</a></p>
       </div>
 
       <div data-target="zakuski"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-burger text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#zakuski" data-i18n="navSnacks">Закуски</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-burger text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#zakuski" data-i18n="navSnacks">Закуски</a></p>
       </div>
 
       <div data-target="combo"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-box-open text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#combo" data-i18n="navCombo">Комбо</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-box-open text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#combo" data-i18n="navCombo">Комбо</a></p>
       </div>
 
       <div data-target="desserts"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-cake-candles text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#desserts" data-i18n="navDesserts">Десерты</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-cake-candles text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#desserts" data-i18n="navDesserts">Десерты</a></p>
       </div>
 
       <div data-target="sauces"
-        class="category-card group bg-white rounded-2xl h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
-        <i class="fa-solid fa-bowl-food text-4xl text-orange-500 mb-3 transition-all duration-300 group-hover:scale-125"></i>
-        <p class="text-lg transition duration-300 group-hover:text-orange-500"><a href="#sauces" data-i18n="navSauces">Соусы</a></p>
+        class="category-card group bg-white rounded-2xl h-20 sm:h-25 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-orange-50 hover:border hover:border-orange-500">
+        <i class="fa-solid fa-bowl-food text-2xl sm:text-4xl text-orange-500 mb-1 sm:mb-3 transition-all duration-300 group-hover:scale-125"></i>
+        <p class="text-xs sm:text-lg text-center transition duration-300 group-hover:text-orange-500"><a href="#sauces" data-i18n="navSauces">Соусы</a></p>
       </div>
     </div>
   </section>
 
-  <div id="aksiyalar" class="flex flex-wrap pb-19 justify-center items-center gap-4 mt-22 px-4">
+  <div id="aksiyalar" class="grid grid-cols-2 lg:flex lg:flex-wrap pb-19 justify-center items-center gap-2 sm:gap-4 mt-22 px-4">
 
-    <img class="w-full rounded-lg sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
-    <img class="w-full rounded-lg sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
-     <img class="w-full rounded-lg sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
-    <img class="w-full rounded-lg sm:w-[calc(50%-8px)] lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
+    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
+    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
+    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 4.png" alt="promo">
+    <img class="w-full rounded-lg lg:w-auto h-auto" src="./img/image copy 5.png" alt="promo">
   </div>
 
   <hr class="border-gray-300 my-4">
@@ -623,7 +623,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navPizza" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Пицца</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-pizza" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-pizza" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>
@@ -632,7 +632,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navSushi" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Суши</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-sushi" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-sushi" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>
@@ -641,7 +641,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navDrinks" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Напитки</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-napitki" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-napitki" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>
@@ -650,7 +650,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navSnacks" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Закуски</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-zakuski" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-zakuski" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>
@@ -659,7 +659,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navCombo" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Комбо</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-combo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-combo" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>
@@ -668,7 +668,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navDesserts" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Десерты</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-desserts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-desserts" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>
@@ -677,7 +677,7 @@ hover:rotate-180 duration-500">
     <h1 data-i18n="navSauces" class="text-2xl sm:text-3xl lg:text-4xl font-[500] ml-4 sm:ml-8 mb-8">Соусы</h1>
     <section class="bg-[#f5f5f7] py-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div id="grid-sauces" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="grid-sauces" class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6"></div>
       </div>
     </section>
   </div>

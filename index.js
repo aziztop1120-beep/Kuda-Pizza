@@ -386,18 +386,18 @@ function renderProducts() {
       .map(
         (p) => `
       <div class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300">
-        <div class="flex justify-center pt-4 m-4">
-          <img src="${p.img}" class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-contain hover:scale-105 transition">
+        <div class="flex justify-center pt-2 sm:pt-4 m-2 sm:m-4">
+          <img src="${p.img}" class="w-full max-w-[140px] sm:max-w-none sm:w-56 lg:w-64 aspect-square object-contain hover:scale-105 transition">
         </div>
-        <div class="px-6 pb-6">
-          <h2 class="text-[18px] font-semibold">${p.name[currentLang]}</h2>
-          <p class="text-gray-500 text-[15px] mt-3 leading-6 h-16 overflow-hidden">${p.desc[currentLang]}</p>
-          <div class="flex justify-between items-center mt-6">
+        <div class="px-3 sm:px-6 pb-3 sm:pb-6">
+          <h2 class="text-sm sm:text-[18px] font-semibold">${p.name[currentLang]}</h2>
+          <p class="text-gray-500 text-xs sm:text-[15px] mt-1 sm:mt-3 leading-5 sm:leading-6 h-10 sm:h-16 overflow-hidden">${p.desc[currentLang]}</p>
+          <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 mt-3 sm:mt-6">
             <button data-price="${p.price}" data-name="${p.name[currentLang].replace(/"/g, '&quot;')}" data-img="${p.img}"
-              class="choose-btn bg-[#FF7010] hover:bg-orange-600 active:bg-orange-600 text-white px-6 py-3 rounded-xl">
+              class="choose-btn bg-[#FF7010] hover:bg-orange-600 active:bg-orange-600 text-white text-xs sm:text-base px-3 sm:px-6 py-2 sm:py-3 rounded-xl order-2 sm:order-1">
               ${t("chooseBtn")}
             </button>
-            <span class="text-[#FF7010] text-2xl font-semibold">${formatPrice(p.price)}</span>
+            <span class="text-[#FF7010] text-sm sm:text-2xl font-semibold order-1 sm:order-2">${formatPrice(p.price)}</span>
           </div>
         </div>
       </div>`
