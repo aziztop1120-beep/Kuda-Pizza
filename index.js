@@ -689,21 +689,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // dark mode
-  const themeBtn = document.getElementById("themeToggle");
-  function enableDark() {
-    document.body.classList.add("dark");
-    themeBtn.innerHTML = "☀️";
-    localStorage.setItem("theme", "dark");
-  }
-  function disableDark() {
-    document.body.classList.remove("dark");
-    themeBtn.innerHTML = "🌙";
-    localStorage.setItem("theme", "light");
-  }
-  if (localStorage.getItem("theme") === "dark") enableDark();
-  themeBtn?.addEventListener("click", () => {
+// YANGI
+const themeBtn = document.getElementById("themeToggle");
+const themeBtnMobile = document.getElementById("themeToggleMobile");
+function enableDark() {
+  document.body.classList.add("dark");
+  if (themeBtn) themeBtn.innerHTML = "🌙";
+  if (themeBtnMobile) themeBtnMobile.innerHTML = "🌙";
+  localStorage.setItem("theme", "dark");
+}
+function disableDark() {
+  document.body.classList.remove("dark");
+  if (themeBtn) themeBtn.innerHTML = "☀️";
+  if (themeBtnMobile) themeBtnMobile.innerHTML = "☀️";
+  localStorage.setItem("theme", "light");
+}
+if (localStorage.getItem("theme") === "dark") enableDark();
+[themeBtn, themeBtnMobile].forEach((btn) => {
+  btn?.addEventListener("click", () => {
     document.body.classList.contains("dark") ? disableDark() : enableDark();
   });
+});
 
   // cart
   const CART_KEY = "kuda_pizza_cart";
